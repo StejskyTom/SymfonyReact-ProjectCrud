@@ -1,35 +1,37 @@
 import React, {useState} from 'react';
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout"
+import Layout from "../../components/Layout"
 import Swal from 'sweetalert2'
 import axios from 'axios';
 
-function ProjectCreate() {
+function UserCreate() {
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('')
+    const [surname, setSurname] = useState('')
+    const [birthDate, setBirthDate] = useState(null)
     const [isSaving, setIsSaving] = useState(false)
 
     const handleSave = () => {
         setIsSaving(true);
         let formData = new FormData()
         formData.append("name", name)
-        formData.append("description", description)
-        axios.post('/api/project', formData)
+        formData.append("surname", surname)
+        formData.append("birthDate", birthDate)
+        axios.post('/api/user', formData)
             .then(function (response) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Projekt byl úspěšně uložen!',
+                    title: 'Uživatel byl přidán!',
                     showConfirmButton: false,
                     timer: 1500
                 })
                 setIsSaving(false);
                 setName('')
-                setDescription('')
+                setSurname('')
             })
             .catch(function (error) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Nepodařilo se vytvořit projekt!',
+                    title: 'Nepodařilo se vytvořit uživatele!',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -40,18 +42,18 @@ function ProjectCreate() {
     return (
         <Layout>
             <div className="container">
-                <h2 className="text-center mt-5 mb-3">Vytvořit nový projekt</h2>
+                <h2 className="text-center mt-5 mb-3">Přidat uživatele</h2>
                 <div className="card">
                     <div className="card-header">
                         <Link
                             className="btn btn-outline-info float-right"
-                            to="/projects">Zobrazit všechny projekty
+                            to="/users">Zobrazit všechny uživatele
                         </Link>
                     </div>
                     <div className="card-body">
                         <form>
                             <div className="form-group">
-                                <label htmlFor="name">Název</label>
+                                <label htmlFor="name">Jméno</label>
                                 <input
                                     onChange={(event)=>{setName(event.target.value)}}
                                     value={name}
@@ -61,21 +63,31 @@ function ProjectCreate() {
                                     name="name"/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="description">Popis</label>
-                                <textarea
-                                    value={description}
-                                    onChange={(event)=>{setDescription(event.target.value)}}
+                                <label htmlFor="surname">Příjmení</label>
+                                <input
+                                    onChange={(event)=>{setSurname(event.target.value)}}
+                                    value={surname}
+                                    type="text"
                                     className="form-control"
-                                    id="description"
-                                    rows="3"
-                                    name="description"></textarea>
+                                    id="surname"
+                                    name="surname"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="birthDate">Příjmení</label>
+                                <input
+                                    onChange={(event)=>{setBirthDate(event.target.value)}}
+                                    value={birthDate}
+                                    type="date"
+                                    className="form-control"
+                                    id="birthDate"
+                                    name="birthDate"/>
                             </div>
                             <button
                                 disabled={isSaving}
                                 onClick={handleSave}
                                 type="button"
                                 className="btn btn-outline-primary mt-3">
-                                Uložit projekt
+                                Přidat uživatele
                             </button>
                         </form>
                     </div>
@@ -85,4 +97,4 @@ function ProjectCreate() {
     );
 }
 
-export default ProjectCreate;
+export default UserCreate;

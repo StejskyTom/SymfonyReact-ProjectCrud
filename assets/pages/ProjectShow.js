@@ -24,7 +24,7 @@ function ProjectShow() {
                     <div className="card-header">
                         <Link
                             className="btn btn-outline-info float-right"
-                            to="/"> Zobrazit všechny projekty
+                            to="/projects"> Zobrazit všechny projekty
                         </Link>
                     </div>
                     <div className="card-body">
