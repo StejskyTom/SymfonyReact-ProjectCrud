@@ -8,6 +8,8 @@ import ProjectEdit from "./pages/ProjectEdit"
 import ProjectShow from "./pages/ProjectShow"
 import UserList from "./pages/user/UserList";
 import UserCreate from "./pages/user/UserCreate";
+import UserShow from "./pages/user/UserShow";
+import UserEdit from "./pages/user/UserEdit";
 
 function Main() {
     return (
@@ -20,6 +22,8 @@ function Main() {
 
                 <Route path="/users"  element={<UserList/>} />
                 <Route path="/users/create"  element={<UserCreate/>} />
+                <Route path="/users/show/:id"  element={<UserShow/>} />
+                <Route path="/users/edit/:id"  element={<UserEdit/>} />
             </Routes>
         </Router>
     );

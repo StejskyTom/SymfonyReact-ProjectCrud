@@ -58,7 +58,7 @@ class UserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->json('Uživatel byl přidán #' . $user->getId());
+        return $this->json('Uživatel byl přidán ' . $user->getId());
     }
 
     /**
@@ -69,14 +69,14 @@ class UserController extends AbstractController
         $user = $doctrine->getRepository(User::class)->find($id);
 
         if (!$user) {
-            return $this->json('Nenalezli jsme uživatele s tímto id: ' . $id, 404);
+            return $this->json('Uživatel s tímto id: ' . $id . ' nebyl nalezen', 404);
         }
 
         $data =  [
             'id' => $user->getId(),
             'name' => $user->getName(),
-            'surname' => $user->getDescription(),
-            'birthDate' => $user->getBirthDate(),
+            'surname' => $user->getSurname(),
+            'birthDate' => $user->getBirthDate()->format('Y-m-d'),
         ];
 
         return $this->json($data);
@@ -88,21 +88,24 @@ class UserController extends AbstractController
     public function edit(ManagerRegistry $doctrine, Request $request, int $id): Response
     {
         $entityManager = $doctrine->getManager();
-        $project = $entityManager->getRepository(Project::class)->find($id);
+        /** @var User $user */
+        $user = $entityManager->getRepository(User::class)->find($id);
 
-        if (!$project) {
-            return $this->json('No project found for id' . $id, 404);
+        if (!$user) {
+            return $this->json('Uživatel s tímto id: ' . $id . ' nebyl nalezen', 404);
         }
 
         $content = json_decode($request->getContent());
-        $project->setName($content->name);
-        $project->setDescription($content->description);
+        $user->setName($content->name);
+        $user->setSurname($content->surname);
+        $user->setBirthDate(date_create_from_format('Y-m-d', $content->birthDate));
         $entityManager->flush();
 
         $data =  [
-            'id' => $project->getId(),
-            'name' => $project->getName(),
-            'description' => $project->getDescription(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'birthDate' => 'Ahoj',
         ];
 
         return $this->json($data);
@@ -114,15 +117,15 @@ class UserController extends AbstractController
     public function delete(ManagerRegistry $doctrine, int $id): Response
     {
         $entityManager = $doctrine->getManager();
-        $project = $entityManager->getRepository(Project::class)->find($id);
+        $user = $entityManager->getRepository(User::class)->find($id);
 
-        if (!$project) {
-            return $this->json('No project found for id' . $id, 404);
+        if (!$user) {
+            return $this->json('Uživatel s tímto id: ' . $id . ' nebyl nalezen', 404);
         }
 
-        $entityManager->remove($project);
+        $entityManager->remove($user);
         $entityManager->flush();
 
-        return $this->json('Deleted a project successfully with id ' . $id);
+        return $this->json('Uživatel byl úspěšně odstraněn ' . $id);
     }
 }

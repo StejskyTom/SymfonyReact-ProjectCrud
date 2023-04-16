@@ -8,10 +8,10 @@ function UserList() {
     const  [userList, setUserList] = useState([])
 
     useEffect(() => {
-        fetchProjectList()
+        fetchUserList()
     }, [])
 
-    const fetchProjectList = () => {
+    const fetchUserList = () => {
         axios.get('/api/user')
             .then(function (response) {
                 setUserList(response.data);
@@ -41,7 +41,7 @@ function UserList() {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        fetchProjectList()
+                        fetchUserList()
                     })
                     .catch(function (error) {
                         Swal.fire({
@@ -84,13 +84,13 @@ function UserList() {
                                         <td>{user.surname}</td>
                                         <td>
                                             <Link
-                                                to={`/show/${user.id}`}
+                                                to={`/users/show/${user.id}`}
                                                 className="btn btn-outline-info mx-1">
                                                 Zobrazit
                                             </Link>
                                             <Link
                                                 className="btn btn-outline-success mx-1"
-                                                to={`/edit/${user.id}`}>
+                                                to={`/users/edit/${user.id}`}>
                                                 Upravit
                                             </Link>
                                             <button

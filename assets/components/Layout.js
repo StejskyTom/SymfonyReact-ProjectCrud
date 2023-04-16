@@ -9,7 +9,7 @@ const Layout =({children}) =>{
         <>
             <Navbar bg="primary" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                    <Navbar.Brand href="#home">ProjektyStejskal</Navbar.Brand>
                     <Nav className="me-auto">
                         <Link
                             className={"nav-link"}
