@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/Layout"
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import {Searchbar} from "../../components/Searchbar";
 
 function UserList() {
     const  [userList, setUserList] = useState([])
+    const [results, setResults] = useState([]);
 
     useEffect(() => {
         fetchUserList()
@@ -59,6 +61,7 @@ function UserList() {
         <Layout>
             <div className="container">
                 <h2 className="text-center mt-5 mb-3">Řízení projektů - React</h2>
+                <Searchbar setResults={setResults} />
                 <div className="card">
                     <div className="card-header">
                         <Link
@@ -77,7 +80,7 @@ function UserList() {
                             </tr>
                             </thead>
                             <tbody>
-                            {userList.map((user, key)=>{
+                            {results.map((user, key)=>{
                                 return (
                                     <tr key={key}>
                                         <td>{user.name}</td>

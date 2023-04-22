@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Layout from "../../components/Layout"
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import Searchbar from "../../components/Searchbar";
 
 function getDate(date) {
     var curr = new Date(date);

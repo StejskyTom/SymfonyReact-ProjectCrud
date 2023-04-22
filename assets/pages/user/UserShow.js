@@ -2,13 +2,11 @@ import React, {useState, useEffect, useMemo} from 'react';
 import { Link, useParams } from "react-router-dom";
 import Layout from "../../components/Layout"
 import axios from 'axios';
-import {func} from "prop-types";
 
 function UserShow() {
     const [id, setId] = useState(useParams().id)
     const [user, setUser] = useState({name:'', surname:'', birthDate: null})
     useEffect(() => {
-        console.log('Ahoj');
         axios.get(`/api/user/${id}`)
             .then(function (response) {
                 setUser(response.data)
@@ -17,6 +15,12 @@ function UserShow() {
                 console.log(error);
             })
     }, [])
+
+    let d = new Date(user.birthDate);
+    let ye = new Intl.DateTimeFormat('cs', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('cs', { month: 'long' }).format(d);
+    let da = new Intl.DateTimeFormat('cs', { day: '2-digit' }).format(d);
+    let date = `${da} ${mo} ${ye}`;
 
     return (
         <Layout>
@@ -35,7 +39,7 @@ function UserShow() {
                         <b className="text-muted">Příjmení:</b>
                         <p>{user.surname}</p>
                         <b className="text-muted">Datum narození:</b>
-                        <p>{user.birthDate}</p>
+                        <p>{date}</p>
                     </div>
                 </div>
             </div>

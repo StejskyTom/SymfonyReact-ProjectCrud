@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Searchbar from "./Searchbar";
+import Footer from "./Footer";
 
 const Layout =({children}) =>{
     return(
@@ -19,13 +21,13 @@ const Layout =({children}) =>{
                             className={"nav-link"}
                             to="/users">Správa uživatelů
                         </Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
-            <div className="container">
+            <div className="body-container">
                 {children}
             </div>
+            <Footer/>
         </>
     )
 }

@@ -7,7 +7,7 @@ import axios from 'axios';
 function UserCreate() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('')
-    const [birthDate, setBirthDate] = useState(null)
+    const [birthDate, setBirthDate] = useState('')
     const [isSaving, setIsSaving] = useState(false)
 
     const handleSave = () => {
